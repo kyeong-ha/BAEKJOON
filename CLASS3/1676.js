@@ -1,5 +1,5 @@
 // 팩토리얼 0의 개수
-const input = Number(require('fs').readFileSync('test.txt'));
+const input = Number(require('fs').readFileSync('/dev/stdin'));
 
 function factorial(n){
     if(n==1 || n==0) return 1n;

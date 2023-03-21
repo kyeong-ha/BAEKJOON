@@ -1,29 +1,17 @@
 // 듣보잡
-let no_see_list = require('fs').readFileSync('test.txt').toString().trim().split('\n');
-const[number_of_no_listen, number_of_no_see] = no_see_list.shift().split(' ').map(Number);
-let no_listen_list = no_see_list.splice(0, number_of_no_listen);
+let list = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+const[number_of_no_listen, number_of_no_see] = list.shift().split(' ').map(Number);
 
-// sort
-no_listen_list.sort();
-no_see_list.sort();
+list.sort(); // 정렬을 하면 index i번째와 i+1번째 비교만을 통해 중복이 있는지 체크할 수 있음
+             // 즉, 시간복잡도 O(N)
 
-function isInclude(list, value){
-    for(let i=0; i<list.length; i++){
-        if(list[i] == value) {
-            list.splice(i, 1);
-            return true;
-        }
-    }
-    return false;
-}
+let count = 0; // 듣보잡의 수
+let result = []; // 듣보잡의 명단
 
-let count = 0;
-let result = [];
-
-for(let i=0; i<number_of_no_listen; i++){
-    if(isInclude(no_see_list, no_listen_list[i])){
+for(let i=0; i<list.length-1; i++){
+    if(list[i] == list[i+1]) {
         count++;
-        result.push(no_listen_list[i]);
+        result.push(list[i]);
     }
 }
 

@@ -1,0 +1,14 @@
+// 계단 오르기 
+let score_of_stairs = require('fs').readFileSync('/dev/stdin').toString().trim().split(/\s/).map(Number);
+const number_of_stairs = score_of_stairs.shift();
+
+let dp = new Array(number_of_stairs);
+
+dp[0] = score_of_stairs[0];
+dp[1] = Math.max(score_of_stairs[0]+score_of_stairs[1], score_of_stairs[1]);
+dp[2] = Math.max(score_of_stairs[1]+score_of_stairs[2], score_of_stairs[0]+score_of_stairs[2]);
+
+for(let i=3; i<number_of_stairs; i++){
+   dp[i] = Math.max(dp[i-2]+score_of_stairs[i], dp[i-3]+score_of_stairs[i-1]+score_of_stairs[i]);
+}
+console.log(dp[number_of_stairs-1]);
